@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <title>Movie</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><h1>MOVIE REVIEW</h1></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="#"> <span class="sr-only"></span></a>
+            <a class="nav-item nav-link" href="#">Browse Movies</a>
+            <a class="nav-item nav-link" href="#">News</a>
+            <a class="nav-item nav-link" href="#">About Us</a>
+          </div>
+        </div>
+      </nav>
+
+
+
+
+    <div class="container">
+        <div class="row">
+          
+<div class="col-4">
+    
+</div>
+
+<div class="col-4 border border-3 bg-light shadow p-5 m-5">
+  
+    <h1>Search Movie</h1>
+    <input type="text" id="mname" class="form-control" placeholder="Enter a movie title">
+    <div class="text-center">
+    <button class="btn btn-primary m-3 " onclick="search()">Search</button>
+</div>
+</div>
+
+<div class="col-4">
+  
+</div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <!-- Display result -->
+        <div class="col-6 p-5 design" id="result1">
+
+        </div>
+        
+
+        </div>
+
+        
+
+</body>
+
+<script>
+    function search(){
+        movieName = mname.value
+        //apikey = "c7e5075a"
+        
+        console.log(movieName);
+
+        
+    
+
+    fetch(`https://www.omdbapi.com/?t=${movieName}&apikey=c7e5075a`)
+
+    
+       .then(data=>
+       //console.log(data)
+       data.json()
+       )
+
+         // obj to array
+        .then(arraydata=>
+        //console.log(arraydata))
+        displayData(arraydata))
+
+        .catch(error=>alert('Failed to fetch data'))  //error message
+
+    }
+
+
+    function  displayData(arraydata){
+        var name =  arraydata.Title
+        console.log(name);
+        var ye = arraydata.Year
+        var pic = arraydata.Poster
+        var plo = arraydata.Plot
+        var dir = arraydata.Director
+        var lan =arraydata.Language
+        var rat = arraydata.imdbRating;
+
+        
+
+        
+        
+
+        htmlData = `
+        <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="${pic}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title"><center><b>${name}(${ye})</b></center></h5>
+    <p class="card-text">${plo}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><b>Director :</b> ${dir}</li>
+    <li class="list-group-item"><b>Language :</b> ${lan}</li>
+    <li class="list-group-item"><b>Rating :</b> ${rat}</li>
+  </ul>
+  <div class="card-body">
+   
+  </div>
+</div>
+    
+    
+
+    
+
+        `
+
+        result1.innerHTML=htmlData
+    }
+
+    
+   
+</script>
+</html>
